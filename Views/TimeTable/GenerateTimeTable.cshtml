@@ -1,0 +1,39 @@
+﻿@model DynamicTimeTableGenerator.Models.TimeTableModel
+
+<div class="container mt-3">
+    <a class="btn btn-primary" asp-controller="TimeTable" asp-action="Index">Go to Time-Table Generator</a>
+</div>
+<br />
+<h2>Generated Timetable</h2>
+<button onclick="printTimetable()" class="btn btn-secondary mb-3">Print Timetable</button>
+<table class="table table-striped" id="timetableTable">
+    <tr>
+        @for (int i = 1; i <= Model.SubjectsPerDay; i++) 
+        {
+            <th>Day @i</th>
+        }
+    </tr>
+
+    @for (int i = 0; i < Model.Schedule.Count; i++)
+    {
+       
+        <tr>
+               
+            @foreach (var subject in Model.Schedule[i])
+            {
+                <td>@subject</td>
+            }
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    function printTimetable() {
+        printJS({
+            printable: 'timetableTable', 
+            type: 'html', 
+            header: 'Generated Timetable', 
+            style: 'table {width: 100%; border-collapse: collapse;} th, td {border: 1px solid black; padding: 8px; text-align: center;}'
+        });
+    }
+</script>

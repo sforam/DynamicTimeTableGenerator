@@ -1,0 +1,37 @@
+﻿@model List<DynamicTimeTableGenerator.Models.SubjectAllocationModel>
+
+@{
+    ViewBag.Title = "Allocate Subject Hours";
+    var totalHoursForWeek = ViewBag.TotalHoursForWeek ?? 0;
+    var totalSubjects = ViewBag.TotalSubjects != null ? (int)ViewBag.TotalSubjects : 0;
+}
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<form asp-action="AllocateSubjects" method="post">
+    @for (int i = 0; i < totalSubjects; i++)
+    {
+        <div class="form-group">
+            <label asp-for="@Model[i].SubjectName">Subject Name @(i + 1)</label>
+            <input type="text" class="form-control" asp-for="@Model[i].SubjectName" />
+            <span asp-validation-for="@Model[i].SubjectName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model[i].Hours">Hours for Subject @(i + 1)</label>
+            <input type="number" class="form-control" asp-for="@Model[i].Hours" value="" />
+            <span asp-validation-for="@Model[i].Hours" class="text-danger"></span>
+        </div>
+    }
+    <br />
+
+
+    <div class="container mt-3">
+        <a class="btn btn-primary" asp-controller="TimeTable" asp-action="Index">Back</a>
+        <button type="submit" class="btn btn-primary">Generate Timetable</button>
+    </div>
+</form>
+

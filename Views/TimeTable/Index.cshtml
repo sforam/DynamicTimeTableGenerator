@@ -1,0 +1,33 @@
+﻿@model UserInputModel
+@{
+    ViewData["Title"] = "Dynamic Time-Table Genrerator";
+}
+<h2> @ViewData["Title"] </h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<form asp-action="Index" method="post" id="userInputForm">
+    <div class="form-group">
+        <label for="WorkingDays">Working Days</label>
+        <input type="number" class="form-control" asp-for="WorkingDays" id="WorkingDays" min="1" max="7" value="" required />
+        <span asp-validation-for="WorkingDays" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label for="SubjectsPerDays">Subjects Per Day</label>
+        <input type="number" class="form-control" asp-for="SubjectsPerDay" id="SubjectsPerDay" min="1" max="8" value="" required />
+        <span asp-validation-for="SubjectsPerDay" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label for="TotalSubjects">Total Subjects</label>
+        <input type="number" class="form-control" asp-for="TotalSubjects" id="TotalSubjects" min="1" value="" required />
+        <span asp-validation-for="TotalSubjects" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" >Next</button>
+</form>
+
